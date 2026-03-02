@@ -7,7 +7,7 @@ import {
 
 export async function findUsers(): Promise<UserResponse[]> {
 	const result = await executeQuery(
-		`SELECT id, name, username, password, role
+		`SELECT id, name, username, role
         FROM users`,
 		[],
 	);
@@ -16,7 +16,7 @@ export async function findUsers(): Promise<UserResponse[]> {
 
 export async function findUserById(id: number): Promise<UserResponse | null> {
 	const result = await executeQuery(
-		`SELECT id, name, username, password, role
+		`SELECT id, name, username, role
         FROM users
         WHERE id = $1`,
 		[id],
@@ -29,7 +29,7 @@ export async function findUserbyUsername(
 	username: string,
 ): Promise<UserResponse | null> {
 	const result = await executeQuery(
-		`SELECT id, name, username, password, role
+		`SELECT id, name, username, role
         FROM users
         WHERE username = $1`,
 		[username],
