@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import ApiResponse from "./types/api.type";
 import * as error from "./middlewares/error.middleware";
 import userRouter from "./modules/user/user.route";
+import authRouter from "./modules/auth/auth.route";
 import { ALLOWED_ORIGINS } from "./utils/constants";
 
 dotenv.config();
@@ -40,6 +41,7 @@ app.get<object, ApiResponse>("/", (req, res) => {
 	});
 });
 
+app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use(error.notFound);
 app.use(error.errorHandler);

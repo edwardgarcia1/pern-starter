@@ -1,5 +1,6 @@
 import { executeQuery } from "../../utils/query";
 import {
+	User,
 	UserResponse,
 	UserCreateRequest,
 	UserUpdateRequest,
@@ -44,6 +45,19 @@ export async function isUsernameTaken(username: string): Promise<boolean> {
 		[username],
 	);
 	return result.rows[0].exists;
+}
+
+export async function findUserByUsernameWithPassword(
+	username: string,
+): Promise<(User & { password: string }) | null> {
+	const result = await executeQuery(
+		`SELECT id, name, username, password, role
+        FROM users
+        WHERE username = $1`,
+		[username],
+	);
+
+	return result.rows[0] ?? null;
 }
 
 export async function createUser(
