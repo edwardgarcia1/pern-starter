@@ -6,16 +6,16 @@ import dotenv from "dotenv";
 import ApiResponse from "./types/api.type";
 import * as error from "./middlewares/error.middleware";
 import userRouter from "./modules/user/user.route";
+import { ALLOWED_ORIGINS } from "./utils/constants";
 
 dotenv.config();
 
 const app = express();
-const allowedOrigins = ["http://localhost:5173"];
 
 app.use(
 	cors({
 		origin: (origin, callback) => {
-			if (!origin || allowedOrigins.includes(origin)) {
+			if (!origin || ALLOWED_ORIGINS.includes(origin)) {
 				callback(null, true);
 			} else {
 				console.warn("CORS blocked for origin: ", origin);

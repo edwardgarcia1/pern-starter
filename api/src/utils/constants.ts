@@ -9,6 +9,9 @@ function getEnvVar(name: string): string {
 }
 
 export const PORT = getEnvVar("PORT");
+export const ALLOWED_ORIGINS = getEnvVar("ALLOWED_ORIGINS")
+	.split(",")
+	.map((host) => host.trim());
 
 export const database = getEnvVar("DB");
 export const user = getEnvVar("DB_USER");
